@@ -1,18 +1,23 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 Route::middleware(['web', 'auth'])
-    ->namespace('ConfrariaWeb\Dashboard\Controllers')
-    ->group(function () {
+        ->namespace('ConfrariaWeb\Dashboard\Controllers')
+        ->prefix('admin')
+        ->name('admin.')
+        ->group(function () {
 
-        Route::get(config('cw_dashboard.route.index'), 'DashboardController@index')->name('dashboard');
+            Route::get(config('cw_dashboard.route.index'), 'DashboardController@index')->name('dashboard');
 
-        Route::resource('dashboards', 'DashboardController');
+            Route::resource('dashboards', 'DashboardController');
 
-        Route::name('dashboards.widget.')
+            Route::name('dashboards.widget.')
             ->prefix('dashboards')
             ->group(function () {
                 Route::post('{dashboard_id}/widget/add', 'DashboardController@storeWidget')
-                    ->name('store');
+                ->name('store');
                 Route::put('{dashboard_id}/widget/{widget_id}/edit', 'DashboardController@updateWidget')
-                    ->name('update');
+                ->name('update');
             });
-    });
+        });

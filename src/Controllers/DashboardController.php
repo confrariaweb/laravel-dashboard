@@ -36,7 +36,7 @@ class DashboardController extends Controller
     public function index()
     {
         $dashboard = resolve('DashboardService')->findBy('user_id', auth()->user()->id);
-        return ($dashboard)? $this->show($dashboard->id) : view(config('cw_dashboard.views') . 'dashboards.index');
+        return ($dashboard)? $this->show($dashboard->id) : view(config('cw_dashboard.admin.views') . 'dashboards.index');
     }
 
     public function create()
